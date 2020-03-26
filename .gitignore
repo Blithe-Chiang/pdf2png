@@ -1,0 +1,4 @@
+*sublime*
+uploads/*
+converted/*
+!converted/topng.sh
