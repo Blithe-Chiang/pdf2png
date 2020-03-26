@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head lang="zh-CN">
+    <title>PDF转长图</title>
+    <meta charset="utf-8">
+    <!-- 下面三个是使用 uploadfile 需要用到的 -->
+    <link href="http://hayageek.github.io/jQuery-Upload-File/4.0.11/uploadfile.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="http://hayageek.github.io/jQuery-Upload-File/4.0.11/jquery.uploadfile.min.js"></script>
+    <script type="text/javascript">
+
+
+        function convertAndGetResult(filename){
+            $.getJSON('convert.php?filename=' + filename, function(data){
+                alert('成功获得的转换信息');
+                console.log(data);
+                if (data['status'] == 200) {
+                    download = $('<a></a>').attr({
+                        'href': 'download.php?filename='+filename,
+                        'download': filename
+                    });
+                    $("<span></span>").html(download).prepend("#output");
+                } else {
+                    $("<span></span>").text('转换出现了错误').prepend("#output");
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+
+    <!-- 使用 uploadfile 必须加入的 -->
+    <div id="fileuploader">Upload</div>
+
+
+    <div id="output"></div>
+
+    <script>
+        $(document).ready(function()
+        {
+            $("#fileuploader").uploadFile({
+                maxFileSize:50*1024*1024,           // 上传的文件的大小限制  单位 B
+                allowedTypes: "pdf",
+                url:"./upload.php",                 // 上传的URL
+                fileName:"myfile",
+
+                // callback to be invoked when the upload is successful.
+                onSuccess:function(files,data,xhr,pd)
+                {
+                    //files: list of files
+                    //data: response from server
+                    //xhr : jquer xhr object
+                    //
+                    // console.log(files);
+                    alert(files[0]);
+                    convertAndGetResult(files[0]);
+                }
+
+            });
+        });
+    </script>
+
+
+</body>
+</html>
