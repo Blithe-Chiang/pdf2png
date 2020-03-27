@@ -9,20 +9,25 @@
     <script src="http://hayageek.github.io/jQuery-Upload-File/4.0.11/jquery.uploadfile.min.js"></script>
     <script type="text/javascript">
 
+        function show(status, filename) {
+            if (status == 200) {
+                download = $('<a></a>').text(filename)
+                            .attr({
+                                    'href': 'download.php?filename='+filename,
+                                    'download': filename
+                                });
+                $('<span></span>').html(download).prependTo("#output");
+            } else {
+                $("<span></span>").text('转换出现了错误').prependTo("#output");
+            }
+        }
 
-        function convertAndGetResult(filename){
-            $.getJSON('convert.php?filename=' + filename, function(data){
-                alert('成功获得的转换信息');
-                console.log(data);
-                if (data['status'] == 200) {
-                    download = $('<a></a>').attr({
-                        'href': 'download.php?filename='+filename,
-                        'download': filename
-                    });
-                    $("<span></span>").html(download).prepend("#output");
-                } else {
-                    $("<span></span>").text('转换出现了错误').prepend("#output");
-                }
+        function convertAndGetResult(id, originalFilename){
+            console.log('转换中...');
+            $.getJSON('convert.php?id=' + id, function(data){
+                console.log('转换结束...');
+		filename = originalFilename.slice(0,-3) + 'png';
+                show(data['status'], filename);
             });
         }
     </script>
@@ -52,8 +57,8 @@
                     //xhr : jquer xhr object
                     //
                     // console.log(files);
-                    alert(files[0]);
-                    convertAndGetResult(files[0]);
+	            id = data['id'];
+                    convertAndGetResult(id, files[0]);
                 }
 
             });
