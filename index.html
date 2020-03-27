@@ -17,9 +17,9 @@
 
         function show(status, fileInfo) {
             if (status == 200) {
-                download = $('<a></a>').text(fileInfo['original_name'])
+                download = $('<a></a>').text(fileInfo['original_name'].slice(0,-3) + "png")
                             .attr({
-                                    'href': 'download.php?id='+id,
+                                    'href': 'download.php?id='+fileInfo['id'],
                                     'download': fileInfo['original_name'].slice(0,-3) + "png"
                                 });
                 $('<span></span>').html(download).prependTo("#output");

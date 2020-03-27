@@ -23,9 +23,8 @@ if(isset($_FILES["myfile"]))
     //If Any browser does not support serializing of multiple files using FormData() 
     if(!is_array($_FILES["myfile"]["name"])) //single file  // 目前我们只考虑一次上传一个文件的情况
     {
-        // $id = rand();
+        $id = rand();
         // 在测试阶段，我写成一个固定的数值，方便调试
-        $id = 2000;
 
         // 上传时候的文件名
         $fileName = $id.'.pdf';
