@@ -1,8 +1,13 @@
 <?php 
 
+/**
+ * query string:   id=$id
+ * id，随机生成的一个数字，赋予上传的文件
+ *
+ */
 
-if (isset($_GET['filename'])) {
-    $filename=$_GET['filename'];
+if (isset($_GET['id'])) {
+    $filename=$_GET['id'].'.png';
     $file = "converted/".$filename;
 
     if (file_exists($file)) {
