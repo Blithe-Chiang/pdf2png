@@ -2,6 +2,11 @@
 
 这是一个简单的Web应用，上传pdf文件，然后，等待后台转换为长图
 
+## 新建文件夹
+
+* uploads
+* converted
+
 ## 注意事项
 
 * uploads 和 converted这两个文件夹的权限需要注意
@@ -9,9 +14,9 @@
 
 ## 依赖: 必须安装这两个才能正常运行
 
-* ImageMagick
+* ImageMagick    `yum install -y ImageMagick`
 
-* ghostscript
+* ghostscript `yum install -y ghostscript`
 
 ## 功能列表
 - [x] 将pdf转换为长图
